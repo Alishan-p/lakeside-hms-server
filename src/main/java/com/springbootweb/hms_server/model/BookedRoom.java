@@ -42,7 +42,7 @@ public class BookedRoom {
     @Column(name = "total_guests")
     private int totalNumOfGuest;
 
-    @Column(name = "confirmation_code")
+    @Column(name = "confirmation_code", nullable = false, unique = true)
     private UUID bookingConfirmationCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
