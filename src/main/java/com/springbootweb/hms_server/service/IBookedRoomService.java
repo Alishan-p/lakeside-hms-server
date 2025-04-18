@@ -1,5 +1,5 @@
 package com.springbootweb.hms_server.service;
 
-public interface IBookedRoom {
+public interface IBookedRoomService {
 
 }
