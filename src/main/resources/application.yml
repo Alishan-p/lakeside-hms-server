@@ -1,0 +1,22 @@
+spring:
+    application:
+        name: hms-server
+    datasource:
+        url: jdbc:mysql://localhost:3307/lakeside_hms
+        username: root
+        password: 1234
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+        
+    servlet:
+        multipart: 
+            max-file-size: 200KB
+            max-request-size: 200KB
+
+server:
+    port: 8082
+
+
+
