@@ -3,9 +3,12 @@ package com.springbootweb.hms_server.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.rowset.serial.SerialException;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,11 +36,17 @@ public class RoomController {
         Room savedRoom = roomService.addNewRoom(photo, roomType, roomPrice);
         RoomResponse response = new RoomResponse(savedRoom.getId(), savedRoom.getRoomType(), savedRoom.getRoomPrice());
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        // return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<String> getAllRooms() {
         return ResponseEntity.ok("all rooms");
+    }
+
+    @GetMapping("/types")
+    public List<String> getRoomTypes() {
+        return roomService.getAllRoomTypes();
     }
 }
