@@ -18,4 +18,8 @@ public interface IRoomService {
 
     List<String> getAllRoomTypes();
 
+    List<Room> getAllRooms();
+
+    Room findRoomByRoomId(Long id);
+
 }

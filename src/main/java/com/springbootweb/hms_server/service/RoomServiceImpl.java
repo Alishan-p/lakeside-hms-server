@@ -44,4 +44,14 @@ public class RoomServiceImpl implements IRoomService {
         return roomRepo.findDistinctRoomTypes();
     }
 
+    @Override
+    public List<Room> getAllRooms() {
+        return roomRepo.findAll();
+    }
+
+    @Override
+    public Room findRoomByRoomId(Long id) {
+        return roomRepo.findById(id).orElseThrow(() -> new RuntimeException("Cannot find the room"));
+    }
+
 }
