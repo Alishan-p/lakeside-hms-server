@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
@@ -12,6 +13,7 @@ import javax.sql.rowset.serial.SerialException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springbootweb.hms_server.exception.ResourceNotFoundException;
 import com.springbootweb.hms_server.model.Room;
 import com.springbootweb.hms_server.repository.RoomRepository;
 
@@ -50,13 +52,31 @@ public class RoomServiceImpl implements IRoomService {
     }
 
     @Override
-    public Room findRoomByRoomId(Long id) {
-        return roomRepo.findById(id).orElseThrow(() -> new RuntimeException("Cannot find the room"));
+    public Optional<Room> findRoomByRoomId(Long id) {
+        return roomRepo.findById(id);
     }
 
     @Override
     public void deleteRoomById(long id) {
         roomRepo.deleteById(id);
+    }
+
+    @Override
+    public byte[] getPhotoByRoomId(Long id) throws SQLException {
+        return roomRepo.findPhotoByRoomId(id);
+    }
+
+    @Override
+    public Room updateRoom(Long id, String roomType, BigDecimal roomPrice, Blob photoByte)
+            throws ResourceNotFoundException {
+        Room room = roomRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Room not found"));
+        if (room == null)
+            return null;
+
+        room.setRoomType(roomType);
+        room.setRoomPrice(roomPrice);
+        room.setPhoto(photoByte);
+        return roomRepo.save(room);
     }
 
 }
