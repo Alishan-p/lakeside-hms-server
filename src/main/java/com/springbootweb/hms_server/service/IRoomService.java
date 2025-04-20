@@ -22,4 +22,6 @@ public interface IRoomService {
 
     Room findRoomByRoomId(Long id);
 
+    void deleteRoomById(long id);
+
 }

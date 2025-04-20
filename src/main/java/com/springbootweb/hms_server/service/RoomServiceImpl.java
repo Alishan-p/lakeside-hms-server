@@ -54,4 +54,9 @@ public class RoomServiceImpl implements IRoomService {
         return roomRepo.findById(id).orElseThrow(() -> new RuntimeException("Cannot find the room"));
     }
 
+    @Override
+    public void deleteRoomById(long id) {
+        roomRepo.deleteById(id);
+    }
+
 }

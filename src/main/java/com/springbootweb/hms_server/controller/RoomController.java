@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.Base64;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collector;
 
 import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,6 +67,12 @@ public class RoomController {
     @GetMapping("/types")
     public List<String> getRoomTypes() {
         return roomService.getAllRoomTypes();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRoomById(@PathVariable long id) {
+        roomService.deleteRoomById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     private RoomResponse getRoomResponse(Room room) {
